@@ -1,0 +1,32 @@
+import re
+import requests
+
+def automate_web_scraping(url, output_file):
+    try:
+        # 1. Use 'requests' to get webpage content
+        response = requests.get(url)
+        response.raise_for_status() 
+        html_content = response.text
+
+        # 2. Use 're' to extract the page title
+        # This looks for text between <title> and </title> tags
+        title_search = re.search('<title>(.*?)</title>', html_content, re.IGNORECASE)
+        
+        if title_search:
+            page_title = title_search.group(1)
+            print(f"✅ Extracted Title: {page_title}")
+
+            # 3. Use file handling to save the result
+            with open(output_file, 'w') as file:
+                file.write(f"Webpage Title: {page_title}\n")
+            print(f"✅ Title saved to '{output_file}'.")
+        else:
+            print("❌ No title found on this page.")
+
+    except requests.exceptions.RequestException as e:
+        print(f"⚠️ Web Error: {e}")
+    except Exception as e:
+        print(f"⚠️ An error occurred: {e}")
+
+# Example Usage:
+automate_web_scraping('https://www.google.com', 'web_title.txt')

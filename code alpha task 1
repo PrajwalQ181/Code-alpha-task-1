@@ -1,0 +1,17 @@
+import random
+
+def play_hangman():
+    words = ["PYTHON", "HANGMAN", "CODE", "prajwal", "nihar"]
+    secret_word = random.choice(words)
+    max_incorrect_guesses = 6
+    incorrect_guesses = 0
+    guessed_letters = []
+    
+    # Create the underscores for the word length
+    display_word = ["_"] * len(secret_word)
+
+    print("Welcome to Hangman!")
+    print("Word to guess: " +" ".join(display_word))
+
+# THIS IS THE MOST IMPORTANT PART:
+play_hangman()
